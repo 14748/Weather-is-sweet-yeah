@@ -85,3 +85,17 @@ function getLocation(openWeather) {
         alert("Geolocation is not supported by this browser.");
     }
 }
+
+//This is the method triggered on allow GeoPosition --> Lat/Lon
+function showPosition(position, openWeather) {
+    openWeather.getCurrentWeatherLatLon(position.coords.longitude, position.coords.latitude, function(data){
+        fillWidget(data, openWeather);
+    })
+}
+
+//This is the method triggered on City Seacrh --> city
+function getWeatherDataFromParam(city, openWeather){
+    openWeather.getCurrentWeather(city, function(data){
+        fillWidget(data, openWeather);
+    })
+}
