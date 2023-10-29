@@ -1,0 +1,30 @@
+.outline-none:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: #dee2e6 !important; }
+
+.disable-left-border {
+  border-left: 0px !important; }
+
+.disable-right-border {
+  border-right: 0px !important; }
+
+.disable-top-border {
+  border-top: 0px !important; }
+
+.brx-0 {
+  border-top-right-radius: 0px !important;
+  border-top-left-radius: 0px !important; }
+
+.starighten-borders {
+  border-radius: 0px !important; }
+
+.no-bottom-radius {
+  border-bottom-left-radius: 0px !important;
+  border-bottom-right-radius: 0px !important; }
+
+.custom-border {
+  border-width: 2px !important; }
+
+.override-bg-grey {
+  background-color: #f6f8fa !important; }
