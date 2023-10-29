@@ -99,3 +99,81 @@ function getWeatherDataFromParam(city, openWeather){
         fillWidget(data, openWeather);
     })
 }
+
+function fillWidget(data, openWeather){
+    if (data) {
+        $("#widgetCity").text(data.name + ", " + data.sys.country);
+        $("#widgetWeather").text(data.weather[0].description);
+        $("#widgetTemperature").text(Math.round(data.main.temp)+"°");
+        $("#widgetPressure").text(data.main.pressure);
+        $("#widgetHumidity").text(data.main.humidity);
+        $("#widgetWind").text(data.wind.speed);
+        getBG(data.weather[0].description);
+        openWeather.getPredictionWeather(data.coord.lon, data.coord.lat, function(listData){
+            fillWidgetBody(listData);
+        })
+
+    }else{
+        //Handle error
+    }
+    $("#widgetTime").removeClass("d-none");
+}
+
+function fillWidgetBody(listData){
+    
+    function formatDateToInt(dateStr) {
+        const dateAndTime = dateStr.split(" ");
+        return parseInt(dateAndTime[0].split('-').join(''), 10);
+    }
+    
+    function getDateAndTime(dateStr) {
+        const [date, timePart] = dateStr.split(" ");
+        const realDate = new Date(date);
+        const time = timePart.split(":");
+        return [realDate, `${time[0]}:${time[1]}`];
+    }
+
+    if (listData) {
+        currentDate = formatDateToInt(listData.list[0].dt_txt);
+        avgWeather = 0;
+        numOfPredsPerDay = 0;
+        indexFilled = 0;
+        weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        for (index = 0; index < listData.list.length; index++) {
+            $("#widgetTime"+index).text(Math.round(listData.list[index].main.temp)+"°");
+
+            const newDateInt = formatDateToInt(listData.list[index].dt_txt);
+            const [realDate, time] = getDateAndTime(listData.list[index].dt_txt);
+
+            $("#widgetToday" + index + "Tmp").text(time);
+
+            if (newDateInt > currentDate || index == listData.list.length - 1) {
+                const dayIndex = (index === listData.list.length - 1) ? realDate.getDay() : realDate.getDay() - 1;
+                $("#widgetDay" + indexFilled + "Date").text(weekdays[dayIndex]);
+
+                $("#widgetDay" + indexFilled + "Temp").text(Math.round(avgWeather / numOfPredsPerDay) + "°");
+                indexFilled += 1;
+                avgWeather = 0;
+                numOfPredsPerDay = 0;
+                currentDate = newDateInt;
+            }
+
+            avgWeather += listData.list[index].main.temp;
+            numOfPredsPerDay += 1
+        }
+    }else{
+        //Handle Error
+    }
+}
+
+function formatDateToInt(dateStr) {
+    const dateAndTime = dateStr.split(" ");
+    return parseInt(dateAndTime[0].split('-').join(''), 10);
+  }
+
+function getDateAndTime(dateStr) {
+    const [date, timePart] = dateStr.split(" ");
+    const realDate = new Date(date);
+    const time = timePart.split(":");
+    return [realDate, `${time[0]}:${time[1]}`];
+  }
