@@ -209,15 +209,3 @@ function fillWidgetBody(listData){
         //Handle Error
     }
 }
-
-function formatDateToInt(dateStr) {
-    const dateAndTime = dateStr.split(" ");
-    return parseInt(dateAndTime[0].split('-').join(''), 10);
-  }
-
-function getDateAndTime(dateStr) {
-    const [date, timePart] = dateStr.split(" ");
-    const realDate = new Date(date);
-    const time = timePart.split(":");
-    return [realDate, `${time[0]}:${time[1]}`];
-  }
