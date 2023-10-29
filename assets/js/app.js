@@ -236,5 +236,20 @@ $(function() {
         $('#sidebar').addClass("d-none");
         $('body').addClass("bg-white"); 
     });
+
+    $('#searchInput').on('focus', function() {
+        $(this).addClass("no-bottom-radius");
+        $('#span-search-icon').addClass("no-bottom-radius");
+        $('#useLocation').removeClass("d-none");
+    });
+    
+    $('#searchInput').on('blur', function() {
+        setTimeout(function(){
+            $(this).removeClass("no-bottom-radius");
+            $('#span-search-icon').removeClass("no-bottom-radius");
+            $('#useLocation').addClass("d-none");
+        }, 200);
+        
+    });
     
 });
