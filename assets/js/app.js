@@ -209,3 +209,32 @@ function fillWidgetBody(listData){
         //Handle Error
     }
 }
+
+$(function() {
+    
+    var autocompleteApi = new LocationIq();
+    var openWeather = new OpenWeather();
+
+    $('#menuBtn').on('click', function() {
+        var classes = $('#sidebar').attr("class");
+        if (classes) {
+            var classList = classes.split(/\s+/);
+            console.log(classList);
+            classList.forEach(element => {
+                if (element == "d-none"){
+                    $('#sidebar').removeClass(element);
+
+                    //TODO: make sass for #f6f8fa and simplify this
+                    $('body').removeClass("bg-white"); 
+                    $('body').css('background-color', '#f6f8fa'); 
+                }
+            });
+        }
+    });
+
+    $('#sidebarHide').on('click', function(){
+        $('#sidebar').addClass("d-none");
+        $('body').addClass("bg-white"); 
+    });
+    
+});
