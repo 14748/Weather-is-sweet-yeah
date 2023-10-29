@@ -10,10 +10,10 @@ LocationIq.prototype.getListOfMatches = function (callback) {
         type: "GET",
         dataType: "json",
         success: function(data) {
-            callback(data);
+            callback(null, data);
         },
-        error: function(){
-            callback(null);
+        error: function(jqXHR){
+            callback(`Status: ${jqXHR.status}, ${jqXHR.responseJSON.error}`, null);
         }
     })
 }
@@ -31,10 +31,10 @@ OpenWeather.prototype.getCurrentWeatherLatLon = function (lon, lat, callback){
         type: "GET",
         dataType: "json",
         success: function(data){
-            callback(data);
+            callback(null, data);
         },
-        error: function(){
-            callback(null);
+        error: function(jqXHR){
+            callback(`Status: ${jqXHR.responseJSON.cod}, ${jqXHR.responseJSON.message}`, null);
         }
     })
 }
@@ -45,10 +45,10 @@ OpenWeather.prototype.getCurrentWeather = function (param, callback) {
         type: "GET",
         dataType: "json",
         success: function(data){
-            callback(data);
+            callback(null, data);
         },
-        error: function(){
-            callback(null);
+        error: function(jqXHR){
+            callback(`Status: ${jqXHR.responseJSON.cod}, ${jqXHR.responseJSON.message}`, null);
         }
     })
 }
@@ -88,19 +88,19 @@ function getLocation(openWeather) {
 
 //This is the method triggered on allow GeoPosition --> Lat/Lon
 function showPosition(position, openWeather) {
-    openWeather.getCurrentWeatherLatLon(position.coords.longitude, position.coords.latitude, function(data){
-        fillWidget(data, openWeather);
+    openWeather.getCurrentWeatherLatLon(position.coords.longitude, position.coords.latitude, function(error, data){
+        fillWidget(error, data, openWeather);
     })
 }
 
 //This is the method triggered on City Seacrh --> city
 function getWeatherDataFromParam(city, openWeather){
-    openWeather.getCurrentWeather(city, function(data){
-        fillWidget(data, openWeather);
+    openWeather.getCurrentWeather(city, function(error, data){
+        fillWidget(error, data, openWeather);
     })
 }
 
-function fillWidget(data, openWeather){
+function fillWidget(error, data, openWeather){
     function getBackground(status){
         switch (status) {
             case "snow":
@@ -156,11 +156,12 @@ function fillWidget(data, openWeather){
         openWeather.getPredictionWeather(data.coord.lon, data.coord.lat, function(listData){
             fillWidgetBody(listData);
         })
+        $("#widgetTime").removeClass("d-none");
 
     }else{
-        //Handle error
+        showToast("OpenWeatherAPI: " + error);
     }
-    $("#widgetTime").removeClass("d-none");
+    
 }
 
 function fillWidgetBody(listData){
@@ -210,10 +211,37 @@ function fillWidgetBody(listData){
     }
 }
 
+function showToast(message) {
+    // Define the toast's HTML structure in a string
+    var toastHTML = `
+    <div class="toast custom-alert" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="2000">
+    <a class="btn" data-bs-dismiss="toast" aria-label="Close">
+                <i class="bi bi-x-circle-fill"></i>
+            </a>
+        <div class="toast-body">
+            <strong class="me-auto">Error: </strong>
+            ${message}
+            
+        </div>
+    </div>`;
+
+
+
+
+    $('#toastContainer').append(toastHTML);
+    var toast = $('.toast').last();
+
+    toast.on('hidden.bs.toast', function () {
+        $(this).remove();
+    });
+
+    toast.toast('show');
+}
+
 $(function() {
-    
     var autocompleteApi = new LocationIq();
     var openWeather = new OpenWeather();
+    var canMakeRequest = true;
 
     $('#menuBtn').on('click', function() {
         var classes = $('#sidebar').attr("class");
@@ -251,47 +279,58 @@ $(function() {
         }, 200);
         
     });
+    
 
     $('#searchInput').on('input', function() {
+        if (!canMakeRequest) {
+            return;
+        }
+
         var inputValue = $(this).val();
         if (inputValue.length < 2) {
-            $(".apiGenerated").remove();
+            $(".apiGeneratedDiv").remove();
         }
 
         if(inputValue.length >= 2){
-            autocompleteApi.param = inputValue;
-            autocompleteApi.getListOfMatches(function(data){
-                if (data) {
-                    $('#span-location-icon').addClass("starighten-borders");
-                    $('#currentLocationP').addClass("starighten-borders");
-                    console.log(data);
-                    $(".apiGenerated").remove();
-                    for (let index = 0; index < data.length; index++) {
-                        var content = "";
-                        if (index == data.length - 1) {
-                            content = `<div class=" d-flex flex-column">
-                            <p class="form-control outline-none m-0 brx-0 disable-top-border apiGenerated" aria-describedby="span-location-icon">
-                                ${data[index].address.name + ", " +  data[index].address.state + ", " + data[index].address.country + ", " + data[index].address.country_code}
-                            </p>
-                            </div>`;
-                        }else{
-                            content = `<div class=" d-flex flex-column">
-                            <p class="form-control outline-none m-0 brx-0 disable-top-border starighten-borders apiGenerated" aria-describedby="span-location-icon">
-                            ${data[index].address.name + ", " +  data[index].address.state + ", " + data[index].address.country + ", " + data[index].address.country_code}
-                            </p>
-                            </div>`;
-                        }
-                         
-                        console.log(data[index].display_name);
+            canMakeRequest = false;
 
-                        $("#useLocation").append(content);
-                        
+            setTimeout(function() {
+                canMakeRequest = true
+                autocompleteApi.param = inputValue;
+                autocompleteApi.getListOfMatches(function(error, data){
+                    if (data) {
+                        $('#span-location-icon').addClass("starighten-borders");
+                        $('#currentLocationP').addClass("starighten-borders");
+                        console.log(data);
+                        $(".apiGeneratedDiv").remove();
+                        for (let index = 0; index < data.length; index++) {
+                            var content = "";
+                            if (index == data.length - 1) {
+                                content = `<div class="apiGeneratedDiv d-flex flex-column">
+                                <p class="form-control outline-none m-0 brx-0 disable-top-border apiGenerated" aria-describedby="span-location-icon">
+                                    ${data[index].address.name + ", " +  data[index].address.state + ", " + data[index].address.country + ", " + data[index].address.country_code}
+                                </p>
+                                </div>`;
+                            }else{
+                                content = `<div class="apiGeneratedDiv d-flex flex-column">
+                                <p class="form-control outline-none m-0 brx-0 disable-top-border starighten-borders apiGenerated" aria-describedby="span-location-icon">
+                                ${data[index].address.name + ", " +  data[index].address.state + ", " + data[index].address.country + ", " + data[index].address.country_code}
+                                </p>
+                                </div>`;
+                            }
+                                
+                            console.log(data[index].display_name);
+    
+                            $("#useLocation").append(content);
+                            
+                        }
+                    }else{
+                        showToast("Autocomplete(LocationIQ api): " + error);
+                        $('#span-location-icon').removeClass("starighten-borders");
+                        $('#currentLocationP').removeClass("starighten-borders");
                     }
-                }else{
-                    $('#span-location-icon').removeClass("starighten-borders");
-                    $('#currentLocationP').removeClass("starighten-borders");
-                }
-            });
+                });
+            }, 500); 
         }
     });
 
