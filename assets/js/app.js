@@ -101,6 +101,50 @@ function getWeatherDataFromParam(city, openWeather){
 }
 
 function fillWidget(data, openWeather){
+    function getBackground(status){
+        switch (status) {
+            case "snow":
+            document.getElementById("wrapper-bg").style.backgroundImage =
+            "url('https://mdbgo.io/ascensus/mdb-advanced/img/snow.gif')";
+            break;
+            case "broken clouds":
+            document.getElementById("wrapper-bg").style.backgroundImage =
+            "url('https://mdbgo.io/ascensus/mdb-advanced/img/clouds.gif')";
+            break;
+            case "scattered clouds":
+            document.getElementById("wrapper-bg").style.backgroundImage =
+            "url('https://mdbgo.io/ascensus/mdb-advanced/img/clouds.gif')";
+            break;
+            case "few clouds":
+            document.getElementById("wrapper-bg").style.backgroundImage =
+            "url('https://mdbgo.io/ascensus/mdb-advanced/img/clouds.gif')";
+            break;
+            case "mist":
+            document.getElementById("wrapper-bg").style.backgroundImage =
+            "url('https://mdbgo.io/ascensus/mdb-advanced/img/fog.gif')";
+            break;
+            case "rain":
+            document.getElementById("wrapper-bg").style.backgroundImage =
+            "url('https://mdbgo.io/ascensus/mdb-advanced/img/rain.gif')";
+            break;
+            case "shower rain":
+            document.getElementById("wrapper-bg").style.backgroundImage =
+            "url('https://mdbgo.io/ascensus/mdb-advanced/img/rain.gif')";
+            break;
+            case "clear sky":
+            document.getElementById("wrapper-bg").style.backgroundImage =
+            "url('https://mdbgo.io/ascensus/mdb-advanced/img/clear.gif')";
+            break;
+            case "thunderstorm":
+            document.getElementById("wrapper-bg").style.backgroundImage =
+            "url('https://mdbgo.io/ascensus/mdb-advanced/img/thunderstorm.gif')";
+            break;
+            default:
+            document.getElementById("wrapper-bg").style.backgroundImage =
+            "url('https://mdbgo.io/ascensus/mdb-advanced/img/clear.gif')";
+            break;
+            }
+    }
     if (data) {
         $("#widgetCity").text(data.name + ", " + data.sys.country);
         $("#widgetWeather").text(data.weather[0].description);
@@ -108,7 +152,7 @@ function fillWidget(data, openWeather){
         $("#widgetPressure").text(data.main.pressure);
         $("#widgetHumidity").text(data.main.humidity);
         $("#widgetWind").text(data.wind.speed);
-        getBG(data.weather[0].description);
+        getBackground(data.weather[0].description);
         openWeather.getPredictionWeather(data.coord.lon, data.coord.lat, function(listData){
             fillWidgetBody(listData);
         })
@@ -120,7 +164,7 @@ function fillWidget(data, openWeather){
 }
 
 function fillWidgetBody(listData){
-    
+
     function formatDateToInt(dateStr) {
         const dateAndTime = dateStr.split(" ");
         return parseInt(dateAndTime[0].split('-').join(''), 10);
