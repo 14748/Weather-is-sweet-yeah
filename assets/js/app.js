@@ -66,3 +66,22 @@ OpenWeather.prototype.getPredictionWeather = function(lon, lat, callback) {
         }
     })
 }
+
+//Function to retrieve user GEO POSITION with a promt asking for persmision
+function getLocation(openWeather) {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            function(position) {
+                showPosition(position, openWeather);
+            }, 
+            null, 
+            {
+               enableHighAccuracy: true,
+               timeout: 5000,
+               maximumAge: 0
+            }
+        );
+    } else { 
+        alert("Geolocation is not supported by this browser.");
+    }
+}
