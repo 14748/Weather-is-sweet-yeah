@@ -242,7 +242,7 @@ $(function() {
         $('#span-search-icon').addClass("no-bottom-radius");
         $('#useLocation').removeClass("d-none");
     });
-    
+
     $('#searchInput').on('blur', function() {
         setTimeout(function(){
             $(this).removeClass("no-bottom-radius");
@@ -250,6 +250,49 @@ $(function() {
             $('#useLocation').addClass("d-none");
         }, 200);
         
+    });
+
+    $('#searchInput').on('input', function() {
+        var inputValue = $(this).val();
+        if (inputValue.length < 2) {
+            $(".apiGenerated").remove();
+        }
+
+        if(inputValue.length >= 2){
+            autocompleteApi.param = inputValue;
+            autocompleteApi.getListOfMatches(function(data){
+                if (data) {
+                    $('#span-location-icon').addClass("starighten-borders");
+                    $('#currentLocationP').addClass("starighten-borders");
+                    console.log(data);
+                    $(".apiGenerated").remove();
+                    for (let index = 0; index < data.length; index++) {
+                        var content = "";
+                        if (index == data.length - 1) {
+                            content = `<div class=" d-flex flex-column">
+                            <p class="form-control outline-none m-0 brx-0 disable-top-border apiGenerated" aria-describedby="span-location-icon">
+                                ${data[index].address.name + ", " +  data[index].address.state + ", " + data[index].address.country + ", " + data[index].address.country_code}
+                            </p>
+                            </div>`;
+                        }else{
+                            content = `<div class=" d-flex flex-column">
+                            <p class="form-control outline-none m-0 brx-0 disable-top-border starighten-borders apiGenerated" aria-describedby="span-location-icon">
+                            ${data[index].address.name + ", " +  data[index].address.state + ", " + data[index].address.country + ", " + data[index].address.country_code}
+                            </p>
+                            </div>`;
+                        }
+                         
+                        console.log(data[index].display_name);
+
+                        $("#useLocation").append(content);
+                        
+                    }
+                }else{
+                    $('#span-location-icon').removeClass("starighten-borders");
+                    $('#currentLocationP').removeClass("starighten-borders");
+                }
+            });
+        }
     });
     
 });
