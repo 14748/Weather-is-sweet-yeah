@@ -294,5 +294,18 @@ $(function() {
             });
         }
     });
+
+    $('#currentLocationP').on('click', function(){
+        getLocation(openWeather);
+    });
+
+    $(document).on('click', '.apiGenerated', function() {
+       var autoComplete = $(this).text();
+       var autoCompleteNoWhiteSpace = $.trim(autoComplete);
+       var autoCompletionArray = autoCompleteNoWhiteSpace.split(",");
+       console.log(autoCompletionArray[0]);
+       $("#searchInput").val(autoCompletionArray[0]);
+       getWeatherDataFromParam(autoCompletionArray[0], openWeather);
+    });
     
 });
