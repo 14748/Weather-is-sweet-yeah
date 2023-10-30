@@ -241,6 +241,7 @@ $(function() {
     var autocompleteApi = new LocationIq();
     var openWeather = new OpenWeather();
     var canMakeRequest = true;
+    var isEnglish = true;
 
     $('#menuBtn').on('click', function() {
         var classes = $('#sidebar').attr("class");
@@ -344,6 +345,19 @@ $(function() {
        console.log(autoCompletionArray[0]);
        $("#searchInput").val(autoCompletionArray[0]);
        getWeatherDataFromParam(autoCompletionArray[0], openWeather);
+    });
+
+    $("#langHolder").on('click', function() {
+        var lang = ""
+        if (isEnglish) {
+            lang = "esp.png"
+        }else{
+            lang = "us.png"
+        }
+        
+        $("#lang").attr("src", "./assets/img/" + lang);
+
+        isEnglish = !isEnglish
     });
     
 });
