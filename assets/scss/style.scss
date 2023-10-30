@@ -42,3 +42,18 @@ $radius: 0px;
 .override-bg-grey{
     background-color: $greyBgSideBarToggle !important;
 }
+
+.custom-alert {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #721c24;
+}
+
+.bg-shaygrade{
+    background-color: $greyBgSideBarToggle !important;
+}

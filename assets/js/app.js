@@ -346,6 +346,17 @@ $(function() {
        $("#searchInput").val(autoCompletionArray[0]);
        getWeatherDataFromParam(autoCompletionArray[0], openWeather);
     });
+     
+    $('#currentLocationP').hover(function(){
+        $(this).css('cursor','pointer');
+        $('#currentLocationP').addClass('bg-shaygrade'); 
+        $('#span-location-icon').addClass('bg-shaygrade'); 
+    }, function(){
+        $(this).css('cursor','auto');
+        $('#currentLocationP').css('background-color', '#ffff'); 
+        $('#currentLocationP').removeClass('bg-shaygrade'); 
+        $('#span-location-icon').removeClass('bg-shaygrade'); 
+    });
 
     $("#langHolder").on('click', function() {
         var lang = ""
@@ -354,7 +365,7 @@ $(function() {
         }else{
             lang = "us.png"
         }
-        
+
         $("#lang").attr("src", "./assets/img/" + lang);
 
         isEnglish = !isEnglish
