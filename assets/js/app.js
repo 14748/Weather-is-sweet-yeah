@@ -102,6 +102,7 @@ function getWeatherDataFromParam(city, openWeather){
 
 function fillWidget(error, data, openWeather){
     function getBackground(status){
+        $("#widgetTime").addClass("text-white");
         switch (status) {
             case "snow":
             document.getElementById("wrapper-bg").style.backgroundImage =
@@ -132,6 +133,7 @@ function fillWidget(error, data, openWeather){
             "url('https://mdbgo.io/ascensus/mdb-advanced/img/rain.gif')";
             break;
             case "clear sky":
+            $("#widgetTime").removeClass("text-white");
             document.getElementById("wrapper-bg").style.backgroundImage =
             "url('https://mdbgo.io/ascensus/mdb-advanced/img/clear.gif')";
             break;
@@ -206,13 +208,10 @@ function fillWidgetBody(listData){
             avgWeather += listData.list[index].main.temp;
             numOfPredsPerDay += 1
         }
-    }else{
-        //Handle Error
     }
 }
 
 function showToast(message) {
-    // Define the toast's HTML structure in a string
     var toastHTML = `
     <div class="toast custom-alert" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="2000">
     <a class="btn" data-bs-dismiss="toast" aria-label="Close">
@@ -330,7 +329,7 @@ $(function() {
                         $('#currentLocationP').removeClass("starighten-borders");
                     }
                 });
-            }, 500); 
+            }, 200); 
         }
     });
 
