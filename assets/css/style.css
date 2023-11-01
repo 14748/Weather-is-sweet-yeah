@@ -29,6 +29,19 @@
 .override-bg-grey {
   background-color: #f6f8fa !important; }
 
+#span-search-icon:hover {
+  background-color: #dee2e6 !important;
+  cursor: pointer; }
+
+.apiGenerated:hover {
+  background-color: #dee2e6 !important;
+  cursor: pointer; }
+
+#currentLocationP:hover,
+#currentLocationP:hover + .input-group-text {
+  background-color: #dee2e6 !important;
+  cursor: pointer; }
+
 .custom-alert {
   display: flex;
   align-items: center;

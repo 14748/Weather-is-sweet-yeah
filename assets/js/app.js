@@ -370,16 +370,10 @@ $(function() {
         $('#main').removeClass('d-none');
         $('#contact').addClass('d-none');
     })
-     
-    $('#currentLocationP').hover(function(){
-        $(this).css('cursor','pointer');
-        $('#currentLocationP').addClass('bg-shaygrade'); 
-        $('#span-location-icon').addClass('bg-shaygrade'); 
-    }, function(){
-        $(this).css('cursor','auto');
-        $('#currentLocationP').css('background-color', '#ffff'); 
-        $('#currentLocationP').removeClass('bg-shaygrade'); 
-        $('#span-location-icon').removeClass('bg-shaygrade'); 
-    });
+
+    $('#span-search-icon').on('click', function(){
+        getWeatherDataFromParam($('#searchInput').text, openWeather);
+    })
+
     
 });

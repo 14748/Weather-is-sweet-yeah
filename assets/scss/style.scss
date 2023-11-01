@@ -43,6 +43,23 @@ $radius: 0px;
     background-color: $greyBgSideBarToggle !important;
 }
 
+#span-search-icon:hover{
+    background-color: $greyOutline !important;
+    cursor: pointer;
+}
+
+.apiGenerated:hover{
+    background-color: $greyOutline !important;
+    cursor: pointer;
+}
+
+#currentLocationP:hover,
+#currentLocationP:hover + .input-group-text  {
+    background-color: $greyOutline !important;
+    cursor: pointer;
+}
+
+
 .custom-alert {
     display: flex;
     align-items: center;
