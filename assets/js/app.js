@@ -360,6 +360,16 @@ $(function() {
        $("#searchInput").val(autoCompletionArray[0]);
        getWeatherDataFromParam(autoCompletionArray[0], openWeather);
     });
+
+    $('#contactOnClick').on('click', function(){
+        $('#contact').removeClass('d-none');
+        $('#main').addClass('d-none');
+    })
+
+    $('#mainOnClick').on('click', function(){
+        $('#main').removeClass('d-none');
+        $('#contact').addClass('d-none');
+    })
      
     $('#currentLocationP').hover(function(){
         $(this).css('cursor','pointer');

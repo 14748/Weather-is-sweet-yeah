@@ -26,172 +26,199 @@
     </div>
 </nav>
 
-<div aria-live="polite" aria-atomic="true" class="position-relative">
-  <div class="toast-container top-0 end-0 p-3" id="toastContainer">
-
-  </div>
-</div>
-
-  <div class="container">
-    <div class="input-group mb-0">
-        <span class="input-group-text bg-white" id="span-search-icon">
-            <i class="bi bi-search"></i>
-        </span>
-        <input type="text" class="lang form-control outline-none disable-left-border" key="SEARCH" placeholder="" aria-label="Buscar" aria-describedby="span-search-icon" id="searchInput">
+<section id="main">
+  <div aria-live="polite" aria-atomic="true" class="position-relative">
+    <div class="toast-container top-0 end-0 p-3" id="toastContainer">
+  
     </div>
-
-    <div class="d-none d-flex flex-column border-top border-danger custom-border" id="useLocation">
-
+  </div>
+  
+    <div class="container">
       <div class="input-group mb-0">
-        <span class="input-group-text bg-white disable-right-border brx-0 starighten-borders" id="span-location-icon">
-            <i class="bi bi-geo-alt-fill"></i>
-        </span>
-    
-        <p class="lang form-control outline-none disable-left-border m-0 brx-0 starighten-borders" key="CURRLOCATION" id="currentLocationP" aria-describedby="span-location-icon">
+          <span class="input-group-text bg-white" id="span-search-icon">
+              <i class="bi bi-search"></i>
+          </span>
+          <input type="text" class="lang form-control outline-none disable-left-border" key="SEARCH" placeholder="" aria-label="Buscar" aria-describedby="span-search-icon" id="searchInput">
+      </div>
+  
+      <div class="d-none d-flex flex-column border-top border-danger custom-border" id="useLocation">
+  
+        <div class="input-group mb-0">
+          <span class="input-group-text bg-white disable-right-border brx-0 starighten-borders" id="span-location-icon">
+              <i class="bi bi-geo-alt-fill"></i>
+          </span>
+      
+          <p class="lang form-control outline-none disable-left-border m-0 brx-0 starighten-borders" key="CURRLOCATION" id="currentLocationP" aria-describedby="span-location-icon">
+            
+          </p>
           
-        </p>
-        
+        </div>
       </div>
     </div>
-  </div>
-
-  <div class="mt-4 container text-white px-4 d-none" id="widgetTime" >
-    <div class="rounded-4 p-4" id="wrapper-bg" style="background-image: url('https://mdbgo.io/ascensus/mdb-advanced/img/snow.gif'); background-repeat: no-repeat; background-size: cover;">
-      <div class="row">
-        <div class="col-12 d-flex align-content-center justify-content-center align-self-center">
-          <h2 id="widgetCity">Warsaw</h2>
-        </div>
-      </div>
   
-      <div class="row">
-        <div class="col-12 d-flex align-content-center justify-content-center align-self-center">
-          <h6 id="widgetWeather">light rain</h6>
+    <div class="mt-4 container text-white px-4 d-none" id="widgetTime" >
+      <div class="rounded-4 p-4" id="wrapper-bg" style="background-image: url('https://mdbgo.io/ascensus/mdb-advanced/img/snow.gif'); background-repeat: no-repeat; background-size: cover;">
+        <div class="row">
+          <div class="col-12 d-flex align-content-center justify-content-center align-self-center">
+            <h2 id="widgetCity">Warsaw</h2>
+          </div>
         </div>
-      </div>
-  
-      <div class="row justify-content-center align-items-center">
-        <div class="col-12 text-center justify-content-center d-flex align-items-center">
-            <h1 id="widgetTemperature" class="mb-0">11℃</h1>
-            <img id="imgStatus" src="" width="50" height="50">
-        </div>
-    </div>
     
+        <div class="row">
+          <div class="col-12 d-flex align-content-center justify-content-center align-self-center">
+            <h6 id="widgetWeather">light rain</h6>
+          </div>
+        </div>
     
-  
-      <div class="row text-center">
-        <div class="col-4 d-flex align-content-center justify-content-center align-self-center">
-          <h6 class="lang" key="PRESSURE">Presion1 <br> <span id="widgetPressure">100</span></h6>
-        </div>
-        <div class="col-4 d-flex align-content-center justify-content-center align-self-center">
-          <h6 class="lang" key="HUMIDITY">Humedad1 <br><span id="widgetHumidity">80</span></h6>
-        </div>
-        <div class="col-4 d-flex align-content-center justify-content-center align-self-center">
-          <h6 class="lang" key="WIND">Viento1 <br> <span id="widgetWind">20KMPH</span></h6>
-        </div>
-      </div>
-  
-      <hr>
-  
-      <div class="row">
-        <div class="col-2 d-flex align-content-center justify-content-center align-self-center">
-          <h6 id="widgetTime0">Now</h6>
-        </div>
-        <div class="col-2 d-flex align-content-center justify-content-center align-self-center">
-          <h6 id="widgetTime1">Now</h6>
-        </div>
-        <div class="col-2 d-flex align-content-center justify-content-center align-self-center">
-          <h6 id="widgetTime2">Now</h6>
-        </div>
-        <div class="col-2 d-flex align-content-center justify-content-center align-self-center">
-          <h6 id="widgetTime3">Now</h6>
-        </div>
-        <div class="col-2 d-flex align-content-center justify-content-center align-self-center">
-          <h6 id="widgetTime4">Now</h6>
-        </div>
-        <div class="col-2 d-flex align-content-center justify-content-center align-self-center">
-          <h6 id="widgetTime5">Now</h6>
-        </div>
-      </div>
-  
-      <div class="row">
-        <div class="col-2 d-flex align-content-center justify-content-center align-self-center">
-          <h6 id="widgetToday0Tmp">10</h6>
-        </div>
-        <div class="col-2 d-flex align-content-center justify-content-center align-self-center">
-          <h6 id="widgetToday1Tmp">10</h6>
-        </div>
-        <div class="col-2 d-flex align-content-center justify-content-center align-self-center">
-          <h6 id="widgetToday2Tmp">10</h6>
-        </div>
-        <div class="col-2 d-flex align-content-center justify-content-center align-self-center">
-          <h6 id="widgetToday3Tmp">10</h6>
-        </div>
-        <div class="col-2 d-flex align-content-center justify-content-center align-self-center">
-          <h6 id="widgetToday4Tmp">10</h6>
-        </div>
-        <div class="col-2 d-flex align-content-center justify-content-center align-self-center">
-          <h6 id="widgetToday5Tmp">10</h6>
-        </div>
-      </div>
-  
-      <hr>
-  
-      <div class="row d-flex justify-content-center">
-        <div class="col-5 text-start">
-          <h6 id="widgetDay0Date">Today</h6>
-        </div>
-        <div class="col-5 text-end">
-          <h6 id="widgetDay0Temp">10</h6>
-        </div>
+        <div class="row justify-content-center align-items-center">
+          <div class="col-12 text-center justify-content-center d-flex align-items-center">
+              <h1 id="widgetTemperature" class="mb-0">11℃</h1>
+              <img id="imgStatus" src="" width="50" height="50">
+          </div>
       </div>
       
-  
-      <div class="row d-flex justify-content-center">
-        <div class="col-5 text-start">
-          <h6 id="widgetDay1Date">Today</h6>
+      
+    
+        <div class="row text-center">
+          <div class="col-4 d-flex align-content-center justify-content-center align-self-center">
+            <h6 class="lang" key="PRESSURE">Presion1 <br> <span id="widgetPressure">100</span></h6>
+          </div>
+          <div class="col-4 d-flex align-content-center justify-content-center align-self-center">
+            <h6 class="lang" key="HUMIDITY">Humedad1 <br><span id="widgetHumidity">80</span></h6>
+          </div>
+          <div class="col-4 d-flex align-content-center justify-content-center align-self-center">
+            <h6 class="lang" key="WIND">Viento1 <br> <span id="widgetWind">20KMPH</span></h6>
+          </div>
         </div>
-        <div class="col-5 text-end">
-          <h6 id="widgetDay1Temp">10</h6>
+    
+        <hr>
+    
+        <div class="row">
+          <div class="col-2 d-flex align-content-center justify-content-center align-self-center">
+            <h6 id="widgetTime0">Now</h6>
+          </div>
+          <div class="col-2 d-flex align-content-center justify-content-center align-self-center">
+            <h6 id="widgetTime1">Now</h6>
+          </div>
+          <div class="col-2 d-flex align-content-center justify-content-center align-self-center">
+            <h6 id="widgetTime2">Now</h6>
+          </div>
+          <div class="col-2 d-flex align-content-center justify-content-center align-self-center">
+            <h6 id="widgetTime3">Now</h6>
+          </div>
+          <div class="col-2 d-flex align-content-center justify-content-center align-self-center">
+            <h6 id="widgetTime4">Now</h6>
+          </div>
+          <div class="col-2 d-flex align-content-center justify-content-center align-self-center">
+            <h6 id="widgetTime5">Now</h6>
+          </div>
         </div>
-      </div>
-  
-      <div class="row d-flex justify-content-center">
-        <div class="col-5 text-start">
-          <h6 id="widgetDay2Date">Today</h6>
+    
+        <div class="row">
+          <div class="col-2 d-flex align-content-center justify-content-center align-self-center">
+            <h6 id="widgetToday0Tmp">10</h6>
+          </div>
+          <div class="col-2 d-flex align-content-center justify-content-center align-self-center">
+            <h6 id="widgetToday1Tmp">10</h6>
+          </div>
+          <div class="col-2 d-flex align-content-center justify-content-center align-self-center">
+            <h6 id="widgetToday2Tmp">10</h6>
+          </div>
+          <div class="col-2 d-flex align-content-center justify-content-center align-self-center">
+            <h6 id="widgetToday3Tmp">10</h6>
+          </div>
+          <div class="col-2 d-flex align-content-center justify-content-center align-self-center">
+            <h6 id="widgetToday4Tmp">10</h6>
+          </div>
+          <div class="col-2 d-flex align-content-center justify-content-center align-self-center">
+            <h6 id="widgetToday5Tmp">10</h6>
+          </div>
         </div>
-        <div class="col-5 text-end">
-          <h6 id="widgetDay2Temp">10</h6>
+    
+        <hr>
+    
+        <div class="row d-flex justify-content-center">
+          <div class="col-5 text-start">
+            <h6 id="widgetDay0Date">Today</h6>
+          </div>
+          <div class="col-5 text-end">
+            <h6 id="widgetDay0Temp">10</h6>
+          </div>
         </div>
-      </div>
-  
-      <div class="row d-flex justify-content-center">
-        <div class="col-5 text-start">
-          <h6 id="widgetDay3Date">Today</h6>
+        
+    
+        <div class="row d-flex justify-content-center">
+          <div class="col-5 text-start">
+            <h6 id="widgetDay1Date">Today</h6>
+          </div>
+          <div class="col-5 text-end">
+            <h6 id="widgetDay1Temp">10</h6>
+          </div>
         </div>
-        <div class="col-5 text-end">
-          <h6 id="widgetDay3Temp">10</h6>
+    
+        <div class="row d-flex justify-content-center">
+          <div class="col-5 text-start">
+            <h6 id="widgetDay2Date">Today</h6>
+          </div>
+          <div class="col-5 text-end">
+            <h6 id="widgetDay2Temp">10</h6>
+          </div>
         </div>
-      </div>
-  
-      <div class="row d-flex justify-content-center">
-        <div class="col-5 text-start">
-          <h6 id="widgetDay4Date">Today</h6>
+    
+        <div class="row d-flex justify-content-center">
+          <div class="col-5 text-start">
+            <h6 id="widgetDay3Date">Today</h6>
+          </div>
+          <div class="col-5 text-end">
+            <h6 id="widgetDay3Temp">10</h6>
+          </div>
         </div>
-        <div class="col-5 text-end">
-          <h6 id="widgetDay4Temp">10</h6>
+    
+        <div class="row d-flex justify-content-center">
+          <div class="col-5 text-start">
+            <h6 id="widgetDay4Date">Today</h6>
+          </div>
+          <div class="col-5 text-end">
+            <h6 id="widgetDay4Temp">10</h6>
+          </div>
         </div>
-      </div>
-  
-      <div class="row d-flex justify-content-center">
-        <div class="col-5 text-start">
-          <h6 id="widgetDay5Date">Today</h6>
-        </div>
-        <div class="col-5 text-end">
-          <h6 id="widgetDay5Temp">10</h6>
+    
+        <div class="row d-flex justify-content-center">
+          <div class="col-5 text-start">
+            <h6 id="widgetDay5Date">Today</h6>
+          </div>
+          <div class="col-5 text-end">
+            <h6 id="widgetDay5Temp">10</h6>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+</section>
+
+<section class="d-none" id="contact">
+  <div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h2 class="lang" key="CONTACT"></h2>
+            <form id="contactForm">
+                <div class="form-group">
+                    <input  key="NAME" type="text" class="lang form-control" id="name" placeholder="" required>
+                </div>
+                <div class="form-group">
+                    <input key="EMAIL" type="email" class="lang form-control" id="email" placeholder="" required>
+                </div>
+                <div class="form-group">
+                    <textarea  key="MESSAGE" class="lang form-control" id="message" rows="5" placeholder="" required></textarea>
+                </div>
+                <div class="form-group d-flex justify-content-center">
+                    <button type="submit" class="lang btn btn-primary" key="CONTACTBUTTON"></button>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+</div>
+</section>
 
   <div class="d-none  collapsed d-flex flex-column flex-shrink-0 p-3 bg-white position-absolute border border-1 rounded-3" id="sidebar" style="width: 280px; top: 0; height: 100%;">
     <div class="d-flex justify-content-between align-items-center pb-4">
@@ -201,13 +228,13 @@
 
     <ul class="nav nav-pills flex-column mb-auto">
       <li class="nav-item pb-2">
-        <a href="#" key="INDEX" class="lang text-decoration-none text-black" aria-current="page">
+        <a href="#" key="INDEX" class="lang text-decoration-none text-black" id="mainOnClick" aria-current="page">
           <img src="./assets/img/home.png" width="20" height="20">
           
         </a>
       </li>
       <li class="nav-item">
-        <a href="#" key="CONTACT" class="lang text-decoration-none text-black" aria-current="page">
+        <a href="#" key="CONTACT" class="lang text-decoration-none text-black" id="contactOnClick" aria-current="page">
           <img src="./assets/img/home.png" width="20" height="20">
           
         </a>
@@ -228,5 +255,6 @@
     <script src="./assets/js/ajax.js"></script>
     <script src="./assets/js/app.js"></script>
     <script src="./assets/js/translate.js"></script>
+    <script src="./assets/js/contact.js"></script>
 </body>
 </html>
