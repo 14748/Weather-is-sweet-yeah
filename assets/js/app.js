@@ -1,3 +1,37 @@
+const backgroundMap = {
+    "Snow": "https://mdbgo.io/ascensus/mdb-advanced/img/snow.gif",
+    "Clouds": "https://mdbgo.io/ascensus/mdb-advanced/img/clouds.gif",
+    "Mist": "https://mdbgo.io/ascensus/mdb-advanced/img/fog.gif",
+    "Rain": "https://mdbgo.io/ascensus/mdb-advanced/img/rain.gif",
+    "Drizzle": "https://mdbgo.io/ascensus/mdb-advanced/img/rain.gif",
+    "Clear": "https://th.bing.com/th/id/R.5c72d24fb1d31f573e3cd53ea975d5e1?rik=nXKTr6aYj22jTA&pid=ImgRaw&r=0",
+    "Thunderstorm": "https://mdbgo.io/ascensus/mdb-advanced/img/thunderstorm.gif",
+    "Smoke": "https://mdbgo.io/ascensus/mdb-advanced/img/fog.gif",
+    "Haze": "https://mdbgo.io/ascensus/mdb-advanced/img/fog.gif",
+    "Dust": "https://mdbgo.io/ascensus/mdb-advanced/img/fog.gif",
+    "Fog": "https://mdbgo.io/ascensus/mdb-advanced/img/fog.gif",
+    "Sand": "https://mdbgo.io/ascensus/mdb-advanced/img/fog.gif",
+    "Squall": "https://mdbgo.io/ascensus/mdb-advanced/img/fog.gif",
+    "Tornado": "https://mdbgo.io/ascensus/mdb-advanced/img/fog.gif"
+};
+
+const imageMap = {
+    "Snow": "13d@2x.png",
+    "Clouds": "03d@2x.png",
+    "Mist": "50d@2x.png",
+    "Rain": "10d@2x.png",
+    "Drizzle": "09d@2x.png",
+    "Clear": "01d@2x.png",
+    "Thunderstorm": "11d@2x.png",
+    "Smoke": "50d@2x.png",
+    "Haze": "50d@2x.png",
+    "Dust": "50d@2x.png",
+    "Fog": "50d@2x.png",
+    "Sand": "50d@2x.png",
+    "Squall": "50d@2x.png",
+    "Tornado": "50d@2x.png"
+};
+
 function LocationIq()
 {
     this.apiUrl="https://us1.locationiq.com/v1/autocomplete?key=pk.ae61caf7ea875341b84548ce1700348d&format=json&limit=5&q="
@@ -101,60 +135,34 @@ function getWeatherDataFromParam(city, openWeather){
 }
 
 function fillWidget(error, data, openWeather){
-    function getBackground(status){
-        $("#widgetTime").addClass("text-white");
-        switch (status) {
-            case "snow":
-            document.getElementById("wrapper-bg").style.backgroundImage =
-            "url('https://mdbgo.io/ascensus/mdb-advanced/img/snow.gif')";
-            break;
-            case "broken clouds":
-            document.getElementById("wrapper-bg").style.backgroundImage =
-            "url('https://mdbgo.io/ascensus/mdb-advanced/img/clouds.gif')";
-            break;
-            case "scattered clouds":
-            document.getElementById("wrapper-bg").style.backgroundImage =
-            "url('https://mdbgo.io/ascensus/mdb-advanced/img/clouds.gif')";
-            break;
-            case "few clouds":
-            document.getElementById("wrapper-bg").style.backgroundImage =
-            "url('https://mdbgo.io/ascensus/mdb-advanced/img/clouds.gif')";
-            break;
-            case "mist":
-            document.getElementById("wrapper-bg").style.backgroundImage =
-            "url('https://mdbgo.io/ascensus/mdb-advanced/img/fog.gif')";
-            break;
-            case "rain":
-            document.getElementById("wrapper-bg").style.backgroundImage =
-            "url('https://mdbgo.io/ascensus/mdb-advanced/img/rain.gif')";
-            break;
-            case "shower rain":
-            document.getElementById("wrapper-bg").style.backgroundImage =
-            "url('https://mdbgo.io/ascensus/mdb-advanced/img/rain.gif')";
-            break;
-            case "clear sky":
-            $("#widgetTime").removeClass("text-white");
-            document.getElementById("wrapper-bg").style.backgroundImage =
-            "url('https://mdbgo.io/ascensus/mdb-advanced/img/clear.gif')";
-            break;
-            case "thunderstorm":
-            document.getElementById("wrapper-bg").style.backgroundImage =
-            "url('https://mdbgo.io/ascensus/mdb-advanced/img/thunderstorm.gif')";
-            break;
-            default:
-            document.getElementById("wrapper-bg").style.backgroundImage =
-            "url('https://mdbgo.io/ascensus/mdb-advanced/img/clear.gif')";
-            break;
+        function getBackground(status) {
+            $("#widgetTime").addClass("text-white");
+        
+            if (backgroundMap[status]) {
+                $("#wrapper-bg").css("background-image", `url('${backgroundMap[status]}')`);
+            } else {
+                $("#wrapper-bg").css("background-image", "url('https://mdbgo.io/ascensus/mdb-advanced/img/clear.gif')");
             }
-    }
+    
+            if (imageMap[status]) {
+                $("#imgStatus").attr("src", "./assets/img/" + imageMap[status]);
+            } else {
+                $("#imgStatus").attr("src", "./assets/img/");
+            }
+    
+            var keyFormat = status.toUpperCase();
+            $("#widgetWeather").attr("key", keyFormat).addClass("lang")
+        };
+    
     if (data) {
         $("#widgetCity").text(data.name + ", " + data.sys.country);
-        $("#widgetWeather").text(data.weather[0].description);
+        $("#widgetWeather").text(data.weather[0].main);
         $("#widgetTemperature").text(Math.round(data.main.temp)+"°");
         $("#widgetPressure").text(data.main.pressure);
         $("#widgetHumidity").text(data.main.humidity);
         $("#widgetWind").text(data.wind.speed);
-        getBackground(data.weather[0].description);
+        getBackground(data.weather[0].main);
+        window.reloadTranslations();
         openWeather.getPredictionWeather(data.coord.lon, data.coord.lat, function(listData){
             fillWidgetBody(listData);
         })
@@ -185,7 +193,13 @@ function fillWidgetBody(listData){
         avgWeather = 0;
         numOfPredsPerDay = 0;
         indexFilled = 0;
-        weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        const uppercaseWeekdays = ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"];
+        if (localStorage.getItem("currentLang") === 'es-es') {
+            weekdays = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"];
+        }else{
+            weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        }
+        
         for (index = 0; index < listData.list.length; index++) {
             $("#widgetTime"+index).text(Math.round(listData.list[index].main.temp)+"°");
 
@@ -195,8 +209,13 @@ function fillWidgetBody(listData){
             $("#widgetToday" + index + "Tmp").text(time);
 
             if (newDateInt > currentDate || index == listData.list.length - 1) {
-                const dayIndex = (index === listData.list.length - 1) ? realDate.getDay() : realDate.getDay() - 1;
-                $("#widgetDay" + indexFilled + "Date").text(weekdays[dayIndex]);
+                const dayIndex = (index === listData.list.length - 1) 
+                                    ? realDate.getDay() 
+                                    : (realDate.getDay() - 1 + 7) % 7;
+                const targetElement = $("#widgetDay" + indexFilled + "Date");
+                targetElement.text(weekdays[dayIndex]);
+                targetElement.attr("key", uppercaseWeekdays[dayIndex]);
+                targetElement.addClass("lang");
 
                 $("#widgetDay" + indexFilled + "Temp").text(Math.round(avgWeather / numOfPredsPerDay) + "°");
                 indexFilled += 1;
@@ -356,19 +375,6 @@ $(function() {
         $('#currentLocationP').css('background-color', '#ffff'); 
         $('#currentLocationP').removeClass('bg-shaygrade'); 
         $('#span-location-icon').removeClass('bg-shaygrade'); 
-    });
-
-    $("#langHolder").on('click', function() {
-        var lang = ""
-        if (isEnglish) {
-            lang = "esp.png"
-        }else{
-            lang = "us.png"
-        }
-
-        $("#lang").attr("src", "./assets/img/" + lang);
-
-        isEnglish = !isEnglish
     });
     
 });
