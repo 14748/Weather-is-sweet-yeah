@@ -266,9 +266,8 @@ $(function() {
                 if (element == "d-none"){
                     $('#sidebar').removeClass(element);
 
-                    //TODO: make sass for #f6f8fa and simplify this
                     $('body').removeClass("bg-white"); 
-                    $('body').css('background-color', '#f6f8fa'); 
+                    $('body').addClass('override-bg-grey'); 
                 }
             });
         }
@@ -372,7 +371,7 @@ $(function() {
     })
 
     $('#span-search-icon').on('click', function(){
-        getWeatherDataFromParam($('#searchInput').text, openWeather);
+        getWeatherDataFromParam($('#searchInput').val() , openWeather);
     })
 
     
