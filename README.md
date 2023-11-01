@@ -2,7 +2,7 @@
 
 ## Diseno de la App
 
-![Imagen Dsiseno](https://github.com/14748/V1-Weather-is-sweet-yeah/tree/dev/assets/img/git/readme.png?raw=true)
+![readme](https://github.com/14748/V1-Weather-is-sweet-yeah/assets/99936563/8946a5a7-0276-4b77-8c3a-090a7c76adf2)
 
 ## Funcionalidades de la App
 
