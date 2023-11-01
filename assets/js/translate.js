@@ -73,28 +73,32 @@ $(document).ready(function() {
         }
     };
     
-
+    //This function explained because it has some complexity
     function applyLanguage(langKey) {
-        $(".lang").each(function(index, element) {
+        $(".lang").each(function() {
             var key = $(this).attr("key");
-            if (!arrLang[langKey] || !arrLang[langKey][key]) return;
     
+            //Case for inputs since we wanna modify their placeholders
             if ($(this).is("input") || $(this).is("textarea")) {
                 $(this).attr("placeholder", arrLang[langKey][key]);
+            //Case for <a> elements since we need a different approach
             } else if ($(this).is("a")) {
+                //When theres more elements iside the <a> appart from the text we gotta remove the clidren to set the text correctly
                 if($(this).children().length > 0) {
+                    //We deatach all <a> children from DOM
                     var children = $(this).children().detach();
                     $(this).text(arrLang[langKey][key]);
+                    //After chaning language we reappend childtren //Prepend cuz we want to append at begining
                     $(this).prepend(children);
                 } else {
                     $(this).text(arrLang[langKey][key]);
                 }
             } else {
+                //Same logic as <a> applied to other elements
                 if ($(this).children().length > 0) {
-
                     var children = $(this).children().detach();
                     $(this).text(arrLang[langKey][key]);
-                    
+                    //Append cuz we want to append at end (Default)
                     $(this).append(children);
                 } else {
                     $(this).text(arrLang[langKey][key]);

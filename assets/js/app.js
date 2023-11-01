@@ -162,7 +162,6 @@ function fillWidget(error, data, openWeather){
         $("#widgetHumidity").text(data.main.humidity);
         $("#widgetWind").text(data.wind.speed);
         getBackground(data.weather[0].main);
-        window.reloadTranslations();
         openWeather.getPredictionWeather(data.coord.lon, data.coord.lat, function(listData){
             fillWidgetBody(listData);
         })
@@ -194,11 +193,7 @@ function fillWidgetBody(listData){
         numOfPredsPerDay = 0;
         indexFilled = 0;
         const uppercaseWeekdays = ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"];
-        if (localStorage.getItem("currentLang") === 'es-es') {
-            weekdays = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"];
-        }else{
-            weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-        }
+        
         
         for (index = 0; index < listData.list.length; index++) {
             $("#widgetTime"+index).text(Math.round(listData.list[index].main.temp)+"°");
@@ -213,7 +208,6 @@ function fillWidgetBody(listData){
                                     ? realDate.getDay() 
                                     : (realDate.getDay() - 1 + 7) % 7;
                 const targetElement = $("#widgetDay" + indexFilled + "Date");
-                targetElement.text(weekdays[dayIndex]);
                 targetElement.attr("key", uppercaseWeekdays[dayIndex]);
                 targetElement.addClass("lang");
 
@@ -227,6 +221,7 @@ function fillWidgetBody(listData){
             avgWeather += listData.list[index].main.temp;
             numOfPredsPerDay += 1
         }
+        window.reloadTranslations();
     }
 }
 
