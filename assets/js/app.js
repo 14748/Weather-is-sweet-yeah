@@ -276,6 +276,7 @@ $(function() {
     $('#sidebarHide').on('click', function(){
         $('#sidebar').addClass("d-none");
         $('body').addClass("bg-white"); 
+        $('body').removeClass('override-bg-grey'); 
     });
 
     $('#searchInput').on('focus', function() {
